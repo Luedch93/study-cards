@@ -1,0 +1,24 @@
+h3 {
+  color: #fff;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+a {
+  position: relative;
+}
+
+span.badge {
+  padding: 6px 10px;
+  background-color: orangered;
+  color: #fff;
+  text-align: center;
+  margin-left: -10px;
+}
+span.name {
+  margin-left: 5px;
+}

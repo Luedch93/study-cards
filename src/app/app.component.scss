@@ -6,3 +6,15 @@
   align-items: center;
   justify-content: center;
 }
+
+h1 {
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 25px;
+}

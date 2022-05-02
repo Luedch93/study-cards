@@ -1,6 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
   background-color: blue;
+  font-family: "Lato", sans-serif;
+}
+
+h1 {
+  color: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+  background-color: #fff;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+
+  &:hover {
+    color: blue;
+  }
+  &:active {
+    color: darkblue;
+  }
+  &:visited {
+    color: blueviolet;
+  }
 }
