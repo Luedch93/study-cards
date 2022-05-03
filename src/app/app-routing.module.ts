@@ -2,12 +2,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
 
 import { CardComponent } from './card/card.component';
+import { DeckDetailsComponent } from './deck-details/deck-details.component';
 import { DecksComponent } from './decks/decks.component';
 
 const routes: Route[] = [
   {
-    path: 'deck/:deckID/card/:cardID',
-    component: CardComponent,
+    path: 'deck/:deckID',
+    component: DeckDetailsComponent,
+    children: [
+      {
+        path: 'card/:cardID',
+        component: CardComponent,
+      }
+    ]
   },
   {
     path: 'decks',

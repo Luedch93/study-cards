@@ -1,6 +1,6 @@
 <h3>My Decks</h3>
 <div class="list">
-  <a *ngFor="let deck of decks; index as i;" [routerLink]="['/deck',deck.id,'card', 1]">
+  <a *ngFor="let deck of decks; index as i;" [routerLink]="['/deck',deck.id]">
     <span class="badge">{{i + 1}} </span><span class="name">{{deck.name}}</span>
   </a>
 </div>
