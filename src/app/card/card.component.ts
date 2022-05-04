@@ -19,8 +19,10 @@ export class CardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCardIdInRoute();
-    this.getCardById()
+    this.activatedRoute.paramMap.subscribe((paramMap) => {
+      this.getCardIdInRoute();
+      this.getCardById();
+    });
   }
 
   getCardIdInRoute() {
@@ -29,7 +31,9 @@ export class CardComponent implements OnInit {
 
   getCardById() {
     if (this.cardId)
-      this.deckService.getCardById(this.cardId).subscribe(card => this.card = card)
+      this.deckService
+        .getCardById(this.cardId)
+        .subscribe((card) => (this.card = card));
   }
 
   showBackSide() {

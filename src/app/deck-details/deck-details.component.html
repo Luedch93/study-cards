@@ -8,6 +8,6 @@
 <router-outlet></router-outlet>
 
 <nav *ngIf="cardId && cards.length" class="card-navigation">
-  <button *ngIf="hasPreviousCard()">Previous card</button>
-  <button *ngIf="hasNextCard()">Next card</button>
+  <button *ngIf="hasPreviousCard()" (click)="navigatePreviousCard()">Previous card</button>
+  <button *ngIf="hasNextCard()" (click)="navigateNextCard()">Next card</button>
 </nav>
