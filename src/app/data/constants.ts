@@ -1,4 +1,4 @@
-import { Card } from "../types/Card";
+import { Card } from '../types/Card';
 
 export const DECKS = [
   {
@@ -48,12 +48,20 @@ export const CARDS: Card[] = [
     id: 1,
     deckId: 1,
     question: 'What is a favicon?',
-    answer: 'Is the icon image that will appear next to the title in the browser\'s tabs',
+    answer:
+      "Is the icon image that will appear next to the title in the browser's tabs",
   },
   {
     id: 2,
     deckId: 1,
     question: 'What does the attribute disabled?',
-    answer: 'The attribute disabled will deactivate all click events in a button element'
-  }
-]
+    answer:
+      'The attribute disabled will deactivate all click events in a button element',
+  },
+  {
+    id: 3,
+    deckId: 1,
+    question: 'What are the main features of input type number?',
+    answer: 'Input type number only allows user to input numbers',
+  },
+];

@@ -1,0 +1,24 @@
+@import url("https://css.gg/arrow-left-r.css");
+@import url("https://css.gg/arrow-right-r.css");
+
+h2 {
+  color: #fff;
+}
+
+.card-navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0;
+  .btn {
+    background-color: transparent;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    --ggs: 1.5;
+    &:hover {
+      --ggs: 1.6;
+      color: orangered;
+    }
+  }
+}

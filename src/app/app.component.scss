@@ -1,3 +1,5 @@
+@import url("https://css.gg/card-diamonds.css");
+
 :host {
   min-height: 100vh;
   min-width: 100vw;
@@ -6,10 +8,22 @@
   align-items: center;
   justify-content: center;
 }
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: baseline;
 
-h1 {
-  margin: 0;
-  margin-bottom: 15px;
+  .title-icon {
+    color: #fff;
+    transform: rotate(25deg);
+    color: orangered;
+  }
+
+  h1 {
+    margin: 0;
+    margin-bottom: 15px;
+  }
 }
 
 nav {
