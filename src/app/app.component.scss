@@ -13,11 +13,30 @@
   flex-direction: row;
   gap: 15px;
   align-items: baseline;
+  position: relative;
 
-  .title-icon {
-    color: #fff;
-    transform: rotate(25deg);
+  .card {
+    position: absolute;
     color: orangered;
+    top: 50%;
+    left: -30px;
+    transform: rotate(25deg) translateY(-75%);
+  }
+
+  .c-2 {
+    top: 50%;
+    left: -35px;
+    color: #fff;
+    transform: rotate(-10deg) translateY(-75%);
+    z-index: 200;
+  }
+
+  .c-3 {
+    top: 50%;
+    left: -40px;
+    color: gold;
+    transform: rotate(-45deg) translateY(-75%);
+    z-index: 100;
   }
 
   h1 {
@@ -31,4 +50,9 @@ nav {
   flex-direction: row;
   gap: 10px;
   margin-bottom: 25px;
+
+  a {
+    background-color: orangered;
+    color: #fff;
+  }
 }

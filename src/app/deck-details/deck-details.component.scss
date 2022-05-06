@@ -1,8 +1,42 @@
 @import url("https://css.gg/arrow-left-r.css");
 @import url("https://css.gg/arrow-right-r.css");
+@import url('https://css.gg/add.css');
+@import url('https://css.gg/pen.css');
 
 h2 {
   color: #fff;
+}
+
+nav.options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 10px;
+  button {
+    background-color: transparent;
+    color: #fff;
+    border: 0;
+    font-size: 1rem;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    padding: 0.2rem 0.3rem;
+    height: 33px;
+    cursor: pointer;
+    i {
+      transition: color 0.3s;
+    }
+    &:hover {
+      i {
+        color: orangered;
+      }
+    }
+  }
 }
 
 .card-navigation {
@@ -16,6 +50,9 @@ h2 {
     color: white;
     cursor: pointer;
     --ggs: 1.5;
+    i {
+      transition: color 0.3s;
+    }
     &:hover {
       --ggs: 1.6;
       color: orangered;

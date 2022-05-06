@@ -1,8 +1,8 @@
 <h2>Deck name: {{deck?.name | uppercase}}</h2>
 <nav class="options">
-  <button>Add card</button>
-  <button>Edit deck</button>
-  <button *ngIf="cards.length">Edit card</button>
+  <button><i class="gg-add"></i> Add card</button>
+  <button><i class="gg-pen"></i> Edit deck</button>
+  <button *ngIf="cards.length"><i class="gg-card-diamonds"></i> Edit card</button>
 </nav>
 
 <router-outlet></router-outlet>

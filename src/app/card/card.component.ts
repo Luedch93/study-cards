@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { DeckService } from '../data/deck.service';
 import { Card } from '../types/Card';
 
@@ -20,6 +21,7 @@ export class CardComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
+      this.isFlipped  = false;
       this.getCardIdInRoute();
       this.getCardById();
     });
@@ -30,10 +32,9 @@ export class CardComponent implements OnInit {
   }
 
   getCardById() {
-    if (this.cardId)
-      this.deckService
-        .getCardById(this.cardId)
-        .subscribe((card) => (this.card = card));
+    if (this.cardId) {
+      firstValueFrom(this.deckService.getCardById(this.cardId)).then(card => this.card = card);
+    }
   }
 
   showBackSide() {
