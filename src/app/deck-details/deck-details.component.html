@@ -1,18 +1,11 @@
 <h2>Deck name: {{deck?.name | uppercase}}</h2>
+<p>Number of cards in deck: {{cards.length}}</p>
 <nav class="options">
-  <button><i class="gg-add"></i> Add card</button>
+  <a routerLink="create"><button><i class="gg-add"></i>Add card</button></a>
   <button><i class="gg-pen"></i> Edit deck</button>
   <button *ngIf="cards.length"><i class="gg-card-diamonds"></i> Edit card</button>
 </nav>
 
 <router-outlet></router-outlet>
-<app-not-found-card *ngIf="!cards.length"></app-not-found-card>
 
-<nav *ngIf="cardId && cards.length" class="card-navigation">
-  <div>
-    <button class="btn previous" *ngIf="hasPreviousCard()" (click)="navigatePreviousCard()"><i class="gg-arrow-left-r"></i></button>
-  </div>
-  <div>
-    <button class="btn next" *ngIf="hasNextCard()" (click)="navigateNextCard()"><i class="gg-arrow-right-r"></i></button>
-  </div>
-</nav>
+<app-card-navigation [cardId]="cardId" [cards]="cards" (onNavigateNext)="navigateToCard($event)" (onNavigatePrevious)="navigateToCard($event)"></app-card-navigation>

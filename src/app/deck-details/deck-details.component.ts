@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatestWith } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { combineLatestWith, filter, Subject, takeUntil } from 'rxjs';
 
 import { DeckService } from '../data/deck.service';
+import { RegexService } from '../helpers/regex.service';
 import { Card } from '../types/Card';
 import { Deck } from '../types/Deck';
 
@@ -11,15 +12,17 @@ import { Deck } from '../types/Deck';
   templateUrl: './deck-details.component.html',
   styleUrls: ['./deck-details.component.scss'],
 })
-export class DeckDetailsComponent implements OnInit {
+export class DeckDetailsComponent implements OnInit, OnDestroy {
   deckId?: number;
   cards: Card[] = [];
   deck?: Deck;
   cardId?: number;
+  private notifier = new Subject();
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private deckService: DeckService,
+    private regexService: RegexService,
     private router: Router
   ) {}
 
@@ -27,31 +30,41 @@ export class DeckDetailsComponent implements OnInit {
     this.getDeckIdFromRoute();
     this.getCardIdFromRoute();
 
-    this.fetchInfo().then(() => {
-      if (this.activatedRoute.children.length == 0) this.navigateToFirstCard();
-    });
-    this.router.events.subscribe(() => {
-      this.getCardIdFromRoute();
+    this.fetchInfo();
+
+    this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd),
+        takeUntil(this.notifier)
+      ).subscribe((navigation: any) => {
+        if (this.regexService.isOnlyDeckURL(navigation.url)) this.navigateToFirstCard();
+        this.getCardIdFromRoute();
     });
   }
 
+  ngOnDestroy(): void {
+    this.deckService.clearCards();
+    this.deckService.clearDeck();
+    this.notifier.next(true);
+    this.notifier.complete();
+  }
+
   fetchInfo() {
-    return new Promise((res, rej) => {
-      if (this.deckId) {
-        this.deckService
-          .getDeckById(this.deckId)
-          .pipe(
-            combineLatestWith(this.deckService.getCardsByDeckId(this.deckId))
-          )
-          .subscribe(([deck, cards]) => {
-            this.deck = deck;
-            this.cards = cards;
-            res(true);
-          });
-      } else {
-        rej('Deck Id not provided');
-      }
-    });
+    if (this.deckId) {
+      this.deckService.getCardsByDeckId(this.deckId)
+        .pipe(
+          combineLatestWith(this.deckService.getDeckById(this.deckId)),
+          takeUntil(this.notifier),
+        )
+        .subscribe(([cards, deck]) => {
+          this.deck = deck;
+          this.cards = cards;
+          console.log(deck, cards);
+
+          (this.cards.length > 0) ?
+            this.navigateToFirstCard() :
+            this.navigateToNoCards()
+        });
+    }
   }
 
   getDeckIdFromRoute() {
@@ -72,36 +85,11 @@ export class DeckDetailsComponent implements OnInit {
       });
   }
 
-  hasNextCard(): boolean {
-    const card = this.nextCard();
-    return card !== undefined;
-  }
-  hasPreviousCard(): boolean {
-    const card = this.previousCard();
-    return card !== undefined;
+  navigateToCard(card: Card): void {
+    if (card) this.router.navigate(['card', card.id], { relativeTo: this.activatedRoute });
   }
 
-  navigateCard(cardId: number): void {
-    this.router.navigate(['card', cardId], { relativeTo: this.activatedRoute });
-  }
-
-  navigateNextCard(): void {
-    const card = this.nextCard();
-    if (card) this.navigateCard(card.id);
-  }
-
-  navigatePreviousCard(): void {
-    const card = this.previousCard();
-    if (card) this.navigateCard(card.id);
-  }
-
-  private nextCard(): Card | undefined {
-    const index = this.cards.findIndex((card) => card.id == this.cardId);
-    return index == -1 ? undefined : this.cards[index + 1];
-  }
-
-  private previousCard(): Card | undefined {
-    const index = this.cards.findIndex((card) => card.id == this.cardId);
-    return index == -1 ? undefined : this.cards[index - 1];
+  navigateToNoCards() {
+    this.router.navigate(['no-cards'], { relativeTo: this.activatedRoute })
   }
 }

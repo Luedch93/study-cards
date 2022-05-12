@@ -1,0 +1,36 @@
+form {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  label {
+    display: block;
+    margin: 5px 0px;
+  }
+
+  textarea {
+    width: 100%;
+  }
+  button[type="button"] {
+    margin-top: 10px;
+    background-color: orangered;
+    color: #fff;
+    border: 0;
+    padding: 7px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    align-self: flex-end;
+    margin-top: auto;
+    cursor: pointer;
+    &:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+  }
+  .field-feedback {
+    color: red;
+    font-size: 0.8rem;
+  }
+}

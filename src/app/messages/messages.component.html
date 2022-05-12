@@ -1,0 +1,4 @@
+<h2>Messages</h2>
+<div *ngFor="let message of (messageService.messages$ | async); let i = index;">
+  <p>{{i + 1}} {{message}}</p>
+</div>

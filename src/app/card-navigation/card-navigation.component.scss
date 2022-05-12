@@ -1,0 +1,20 @@
+.card-navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0;
+  .btn {
+    background-color: transparent;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    --ggs: 1.5;
+    i {
+      transition: color 0.3s;
+    }
+    &:hover {
+      --ggs: 1.6;
+      color: orangered;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-@import url("https://css.gg/card-diamonds.css");
+
 
 :host {
   min-height: 100vh;
@@ -8,42 +8,7 @@
   align-items: center;
   justify-content: center;
 }
-.container {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  align-items: baseline;
-  position: relative;
 
-  .card {
-    position: absolute;
-    color: orangered;
-    top: 50%;
-    left: -30px;
-    transform: rotate(25deg) translateY(-75%);
-  }
-
-  .c-2 {
-    top: 50%;
-    left: -35px;
-    color: #fff;
-    transform: rotate(-10deg) translateY(-75%);
-    z-index: 200;
-  }
-
-  .c-3 {
-    top: 50%;
-    left: -40px;
-    color: gold;
-    transform: rotate(-45deg) translateY(-75%);
-    z-index: 100;
-  }
-
-  h1 {
-    margin: 0;
-    margin-bottom: 15px;
-  }
-}
 
 nav {
   display: flex;
