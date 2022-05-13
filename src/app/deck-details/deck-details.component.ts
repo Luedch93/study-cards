@@ -58,8 +58,6 @@ export class DeckDetailsComponent implements OnInit, OnDestroy {
         .subscribe(([cards, deck]) => {
           this.deck = deck;
           this.cards = cards;
-          console.log(deck, cards);
-
           (this.cards.length > 0) ?
             this.navigateToFirstCard() :
             this.navigateToNoCards()

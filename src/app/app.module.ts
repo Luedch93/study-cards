@@ -12,9 +12,10 @@ import { MessagesComponent } from './messages/messages.component';
 import { CardFormComponent } from './card-form/card-form.component';
 import { LogoComponent } from './logo/logo.component';
 import { CardNavigationComponent } from './card-navigation/card-navigation.component';
+import { NewCardComponent } from './new-card/new-card.component';
 
 @NgModule({
-  declarations: [AppComponent, CardComponent, DecksComponent, DeckDetailsComponent, NotFoundCardComponent, MessagesComponent, CardFormComponent, LogoComponent, CardNavigationComponent],
+  declarations: [AppComponent, CardComponent, DecksComponent, DeckDetailsComponent, NotFoundCardComponent, MessagesComponent, CardFormComponent, LogoComponent, CardNavigationComponent, NewCardComponent],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],

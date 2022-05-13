@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { DeckService } from '../data/deck.service';
+import { CardFormService } from '../data/card-form.service';
+import { CardForm } from '../types/CardForm';
 
 @Component({
   selector: 'app-card-form',
@@ -10,19 +10,20 @@ import { DeckService } from '../data/deck.service';
 })
 export class CardFormComponent implements OnInit {
 
-  private deckId?: number
+  @Input() cardForm?: CardForm;
+  formValue: CardForm = {answer: '', question: ''}
 
-  constructor(private deckService: DeckService, private activatedRoute: ActivatedRoute) { }
+  constructor(private cardFormService: CardFormService) { }
 
   ngOnInit(): void {
-    this.deckId = Number(this.activatedRoute.parent?.snapshot.paramMap.get('deckID'));
+    if (this.cardForm)
+      this.formValue = Object.create(this.cardForm);
   }
 
   submit(form: NgForm) {
-    const {answer, question} = form.value;
-    if(this.deckId)
-      this.deckService.addCardToDeck(this.deckId, {answer, question});
-      this.resetForm(form);
+    const cardForm = form.value;
+    this.cardFormService.setCardForm(cardForm)
+    this.resetForm(form);
   }
 
   resetForm(form: NgForm) {

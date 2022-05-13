@@ -1,4 +1,4 @@
-
+@import '../shared/variables';
 
 :host {
   min-height: 100vh;
@@ -17,7 +17,7 @@ nav {
   margin-bottom: 25px;
 
   a {
-    background-color: orangered;
+    background-color: $nav;
     color: #fff;
   }
 }
