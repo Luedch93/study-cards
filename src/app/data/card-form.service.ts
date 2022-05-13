@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { CardForm } from '../types/CardForm';
+import { CardForm } from '../types/Card';
 
 @Injectable({
   providedIn: 'root'

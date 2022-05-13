@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { CardFormService } from '../data/card-form.service';
 import { DeckService } from '../data/deck.service';
-import { CardForm } from '../types/CardForm';
+import { CardForm } from '../types/Card';
 
 @Component({
   selector: 'app-new-card',
@@ -18,7 +18,8 @@ export class NewCardComponent implements OnInit, OnDestroy {
   constructor(
     private cardFormService: CardFormService,
     private deckService: DeckService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -42,9 +43,9 @@ export class NewCardComponent implements OnInit, OnDestroy {
       this.cardFormService.getCardForm().pipe(
         takeUntil(this.notifier)
       ).subscribe(cardForm => {
-        this.deckService.addCardToDeck(deckId, cardForm)
+        this.deckService.addCardToDeck(deckId, cardForm);
+        this.router.navigate(['deck', this.getDeckIDFormRoute()])
       })
     }
   }
-
 }

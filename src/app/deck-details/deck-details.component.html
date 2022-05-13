@@ -1,8 +1,8 @@
 <h2>Deck name: {{deck?.name | uppercase}}</h2>
 <p>Number of cards in deck: {{cards.length}}</p>
 <nav class="options">
-  <a routerLink="create"><button><i class="gg-add"></i>Add card</button></a>
-  <button><i class="gg-pen"></i> Edit deck</button>
+  <a routerLink="create" [routerLinkActive]="'active'"><button><i class="gg-add"></i>Add card</button></a>
+  <a routerLink="edit" [routerLinkActive]="'active'"><button><i class="gg-pen"></i> Edit deck</button></a>
   <button *ngIf="cards.length"><i class="gg-card-diamonds"></i> Edit card</button>
 </nav>
 

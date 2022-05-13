@@ -3,8 +3,14 @@
 @import url('https://css.gg/add.css');
 @import url('https://css.gg/pen.css');
 
+@import '../../shared/variables';
+
 h2, p {
   color: #fff;
+}
+
+.gg-pen {
+  margin-left: 4px;
 }
 
 nav.options {
@@ -17,6 +23,15 @@ nav.options {
   a {
     background-color: transparent;
     padding: 0;
+    &.active {
+      button {
+        i {
+          color: $nav;
+        }
+        border-color: $nav;
+        color: $nav;
+      }
+    }
   }
   button {
     background-color: transparent;
@@ -32,13 +47,18 @@ nav.options {
     padding: 0.2rem 0.3rem;
     height: 33px;
     cursor: pointer;
+    transition: border 0.2s linear, color 0.2s linear;
+
+
     i {
-      transition: color 0.3s;
+      transition:  color 0.2s linear;
     }
     &:hover {
       i {
-        color: orangered;
+        color: $nav;
       }
+      border-color: $nav;
+      color: $nav;
     }
   }
 }

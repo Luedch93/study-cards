@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CardFormService } from '../data/card-form.service';
-import { CardForm } from '../types/CardForm';
+import { CardForm } from '../types/Card';
 
 @Component({
   selector: 'app-card-form',
@@ -11,6 +11,7 @@ import { CardForm } from '../types/CardForm';
 export class CardFormComponent implements OnInit {
 
   @Input() cardForm?: CardForm;
+  @Input() btnLabel: string = "Create Card"
   formValue: CardForm = {answer: '', question: ''}
 
   constructor(private cardFormService: CardFormService) { }

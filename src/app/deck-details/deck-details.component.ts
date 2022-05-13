@@ -35,9 +35,9 @@ export class DeckDetailsComponent implements OnInit, OnDestroy {
     this.router.events.pipe(
         filter(event => event instanceof NavigationEnd),
         takeUntil(this.notifier)
-      ).subscribe((navigation: any) => {
-        if (this.regexService.isOnlyDeckURL(navigation.url)) this.navigateToFirstCard();
+      ).subscribe(() => {
         this.getCardIdFromRoute();
+        this.defaultNavigation();
     });
   }
 
@@ -58,9 +58,7 @@ export class DeckDetailsComponent implements OnInit, OnDestroy {
         .subscribe(([cards, deck]) => {
           this.deck = deck;
           this.cards = cards;
-          (this.cards.length > 0) ?
-            this.navigateToFirstCard() :
-            this.navigateToNoCards()
+          this.defaultNavigation();
         });
     }
   }
@@ -89,5 +87,15 @@ export class DeckDetailsComponent implements OnInit, OnDestroy {
 
   navigateToNoCards() {
     this.router.navigate(['no-cards'], { relativeTo: this.activatedRoute })
+  }
+
+  defaultNavigation() {
+    if (this.regexService.isOnlyDeckURL(this.router.url)) {
+      if (this.cards.length > 0) {
+        this.navigateToFirstCard()
+      } else {
+        this.navigateToNoCards()
+      }
+    }
   }
 }

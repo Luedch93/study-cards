@@ -1,3 +1,5 @@
+@import '../../shared/variables';
+
 .card-navigation {
   display: flex;
   flex-direction: row;
@@ -14,7 +16,7 @@
     }
     &:hover {
       --ggs: 1.6;
-      color: orangered;
+      color: $nav;
     }
   }
 }

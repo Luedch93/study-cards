@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Card } from '../types/Card';
-import { Deck } from '../types/Deck';
+import { Card, CardForm } from '../types/Card';
+import { Deck, DeckForm } from '../types/Deck';
 import { CARDS, DECKS } from './constants';
 import { MessagesService } from './messages.service';
 
@@ -43,15 +43,31 @@ export class DeckService {
     return this.card$;
   }
 
-  addCardToDeck(deckId: number, card: {answer: string, question: string}): void {
+  addCardToDeck(deckId: number, card: CardForm): void {
     CARDS.push({
       deckId,
       answer: card.answer,
-      id: Math.round(Math.random() * 10000),
+      id: new Date().getTime(),
       question: card.question,
     });
     const cards = CARDS.filter(card => card.deckId == deckId);
     this.cards$.next(cards);
+  }
+
+  addDeck(deck: DeckForm) {
+    DECKS.push({
+      id: new Date().getTime(),
+      name: deck.name
+    });
+    this.decks$.next(DECKS);
+  }
+
+  editDeck(deckID: number, deckForm: DeckForm) {
+    const deck = DECKS.find(d => d.id === deckID);
+    if (deck) {
+      deck.name = deckForm.name;
+    }
+    this.decks$.next(DECKS);
   }
 
   clearDeck() {

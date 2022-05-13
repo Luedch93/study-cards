@@ -1,0 +1,10 @@
+<form #form="ngForm">
+  <div class="form-field">
+    <label for="name">Deck name:</label>
+    <input type="text" id="name" name="name" [(ngModel)]="formValue.name" #name="ngModel" required >
+    <div class="field-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+      <p *ngIf="name.errors['required']">Deck name is required</p>
+    </div>
+  </div>
+  <button [disabled]="!form.valid" type="button" (click)="submit(form)">{{btnLabel}}</button>
+</form>

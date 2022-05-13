@@ -4,3 +4,8 @@ export type Card = {
   question: string;
   answer: string;
 }
+
+export type CardForm = {
+  question: string;
+  answer: string;
+}

@@ -19,6 +19,9 @@ export class CardNavigationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('cards', this.cards);
+    console.log('cardID', this.cardId);
+
   }
 
   navigateNextCard(): void {

@@ -13,5 +13,5 @@
       <p *ngIf="answer.errors['required']">Answer is required</p>
     </div>
   </div>
-  <button [disabled]="!form.valid" type="button" (click)="submit(form)">Create card</button>
+  <button [disabled]="!form.valid" type="button" (click)="submit(form)">{{btnLabel}}</button>
 </form>
