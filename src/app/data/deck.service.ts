@@ -62,12 +62,24 @@ export class DeckService {
     this.decks$.next(DECKS);
   }
 
-  editDeck(deckID: number, deckForm: DeckForm) {
+  editDeck(deckID: number, deckForm: DeckForm): void {
     const deck = DECKS.find(d => d.id === deckID);
     if (deck) {
       deck.name = deckForm.name;
     }
     this.decks$.next(DECKS);
+  }
+
+  editCard(cardId: number, cardForm: CardForm): void {
+    let cards: Card[] = [];
+    const card = CARDS.find(c => c.id === cardId);
+
+    if (card) {
+      card.answer = cardForm.answer;
+      card.question = cardForm.question;
+      cards = CARDS.filter(c => c.deckId === card.deckId)
+    }
+    this.cards$.next(cards);
   }
 
   clearDeck() {

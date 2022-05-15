@@ -11,4 +11,9 @@ export class RegexService {
     let cardRegex = /^\/deck\/(\d*)$/
     return cardRegex.test(url);
   }
+
+  isDeckAndCardURL(url: string): boolean {
+    let urlRegex = /^\/deck\/(\d*)\/card\/(\d*)$/
+    return urlRegex.test(url);
+  }
 }

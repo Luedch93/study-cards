@@ -16,9 +16,10 @@ import { NewCardComponent } from './new-card/new-card.component';
 import { DeckFormComponent } from './deck-form/deck-form.component';
 import { NewDeckComponent } from './new-deck/new-deck.component';
 import { EditDeckComponent } from './edit-deck/edit-deck.component';
+import { EditCardComponent } from './edit-card/edit-card.component';
 
 @NgModule({
-  declarations: [AppComponent, CardComponent, DecksComponent, DeckDetailsComponent, NotFoundCardComponent, MessagesComponent, CardFormComponent, LogoComponent, CardNavigationComponent, NewCardComponent, DeckFormComponent, NewDeckComponent, EditDeckComponent],
+  declarations: [AppComponent, CardComponent, DecksComponent, DeckDetailsComponent, NotFoundCardComponent, MessagesComponent, CardFormComponent, LogoComponent, CardNavigationComponent, NewCardComponent, DeckFormComponent, NewDeckComponent, EditDeckComponent, EditCardComponent],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],

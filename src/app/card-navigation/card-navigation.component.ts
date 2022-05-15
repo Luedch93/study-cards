@@ -18,11 +18,7 @@ export class CardNavigationComponent implements OnInit {
     public deckManagementService: DeckManagementService
   ) { }
 
-  ngOnInit(): void {
-    console.log('cards', this.cards);
-    console.log('cardID', this.cardId);
-
-  }
+  ngOnInit(): void {}
 
   navigateNextCard(): void {
     if (this.cardId) {

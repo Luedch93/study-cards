@@ -4,6 +4,7 @@ import { RouterModule, Route } from '@angular/router';
 import { CardComponent } from './card/card.component';
 import { DeckDetailsComponent } from './deck-details/deck-details.component';
 import { DecksComponent } from './decks/decks.component';
+import { EditCardComponent } from './edit-card/edit-card.component';
 import { EditDeckComponent } from './edit-deck/edit-deck.component';
 import { NewCardComponent } from './new-card/new-card.component';
 import { NewDeckComponent } from './new-deck/new-deck.component';
@@ -21,6 +22,10 @@ const routes: Route[] = [
       {
         path: 'card/:cardID',
         component: CardComponent,
+      },
+      {
+        path: 'card/:cardID/edit',
+        component: EditCardComponent,
       },
       {
         path: 'create',

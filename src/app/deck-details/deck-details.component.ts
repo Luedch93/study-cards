@@ -89,6 +89,18 @@ export class DeckDetailsComponent implements OnInit, OnDestroy {
     this.router.navigate(['no-cards'], { relativeTo: this.activatedRoute })
   }
 
+  editCardURL(): string[] {
+    return ['card', String(this.cardId) , 'edit'];
+  }
+
+  cardsURL(): string[] {
+    return ['/deck', String(this.deckId)];
+  }
+
+  showCardEdit(): boolean {
+    return this.cards.length > 0 && this.regexService.isDeckAndCardURL(this.router.url);
+  }
+
   defaultNavigation() {
     if (this.regexService.isOnlyDeckURL(this.router.url)) {
       if (this.cards.length > 0) {
