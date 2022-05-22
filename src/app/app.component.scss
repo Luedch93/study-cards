@@ -1,14 +1,12 @@
-@import '../shared/variables';
+@import "../shared/variables";
 
 :host {
   min-height: 100vh;
-  min-width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
 
 nav {
   display: flex;
@@ -19,5 +17,7 @@ nav {
   a {
     background-color: $nav;
     color: #fff;
+    padding: 6px 10px;
+    border-radius: 5px;
   }
 }

@@ -1,4 +1,4 @@
-@import '../../shared/variables';
+@import "../../shared/variables";
 
 h3 {
   color: #fff;
@@ -12,6 +12,9 @@ h3 {
 
 a {
   position: relative;
+  background-color: #fff;
+  padding: 6px 10px;
+  border-radius: 5px;
 }
 
 span.badge {
@@ -20,6 +23,8 @@ span.badge {
   color: #fff;
   text-align: center;
   margin-left: -10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 span.name {
   margin-left: 5px;
