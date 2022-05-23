@@ -29,3 +29,11 @@ span.badge {
 span.name {
   margin-left: 5px;
 }
+
+.not-found {
+  color: #fff;
+  a {
+    padding: 0;
+    background-color: transparent;
+  }
+}
