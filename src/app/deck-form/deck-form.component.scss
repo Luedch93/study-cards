@@ -1,4 +1,4 @@
-@import '../../shared/variables';
+@import "../../shared/variables";
 
 form {
   background-color: #fff;
@@ -6,13 +6,12 @@ form {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  height: 400px;
   label {
     display: block;
     margin: 5px 0px;
   }
 
-  input[type=text] {
+  input[type="text"] {
     width: 100%;
   }
   button[type="button"] {
@@ -24,7 +23,6 @@ form {
     border-radius: 5px;
     font-size: 0.9rem;
     align-self: flex-end;
-    margin-top: auto;
     cursor: pointer;
     &:disabled {
       background-color: gray;

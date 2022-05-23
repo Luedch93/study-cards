@@ -1,11 +1,12 @@
 @import url("https://css.gg/arrow-left-r.css");
 @import url("https://css.gg/arrow-right-r.css");
-@import url('https://css.gg/add.css');
-@import url('https://css.gg/pen.css');
+@import url("https://css.gg/add.css");
+@import url("https://css.gg/pen.css");
 
-@import '../../shared/variables';
+@import "../../shared/variables";
 
-h2, p {
+h2,
+p {
   color: #fff;
 }
 
@@ -49,9 +50,8 @@ nav.options {
     cursor: pointer;
     transition: border 0.2s linear, color 0.2s linear;
 
-
     i {
-      transition:  color 0.2s linear;
+      transition: color 0.2s linear;
     }
     &:hover {
       i {
@@ -59,6 +59,16 @@ nav.options {
       }
       border-color: $nav;
       color: $nav;
+    }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  nav.options {
+    a {
+      button {
+        font-size: 12px;
+      }
     }
   }
 }
