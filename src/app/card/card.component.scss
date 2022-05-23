@@ -38,6 +38,18 @@
     }
   }
 }
+.toggle-text {
+  animation: toggle 0.8s linear;
+}
+
+@keyframes toggle {
+  0% {
+    color: transparent;
+  }
+  100% {
+    color: inherit;
+  }
+}
 
 .scene_card.is-flipped {
   transform: rotateY(180deg);
