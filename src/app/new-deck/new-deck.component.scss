@@ -1,4 +1,8 @@
+@use "../../shared/placeholders";
+
 :host {
-  display: block;
+  @extend %card-size;
+  margin: unset;
   width: 100%;
+
 }

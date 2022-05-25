@@ -20,7 +20,7 @@ export class CardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((paramMap) => {
+    this.activatedRoute.paramMap.subscribe(() => {
       this.isFlipped  = false;
       this.getCardIdInRoute();
       this.getCardById();

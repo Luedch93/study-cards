@@ -1,0 +1,5 @@
+@use "../../shared/placeholders";
+
+:host {
+  @extend %card-size;
+}

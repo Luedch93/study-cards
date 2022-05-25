@@ -93,6 +93,7 @@ export class DeckService {
 
     this.storageService.setDecks(decks);
     this.decks$.next(decks);
+    this.deck$.next(deck);
   }
 
   editCard(cardId: number, cardForm: CardForm): void {
