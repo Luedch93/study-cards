@@ -1,30 +1,29 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
 import { DeckService } from '../data/deck.service';
 import { Deck } from '../types/Deck';
 
 @Component({
-    selector: 'app-decks',
-    templateUrl: './decks.component.html',
-    styleUrls: ['./decks.component.scss'],
-    standalone: false
+  selector: 'app-decks',
+  templateUrl: './decks.component.html',
+  styleUrls: ['./decks.component.scss'],
+  imports: [RouterLink],
 })
-export class DecksComponent implements OnInit, OnDestroy {
+export class DecksComponent {
   decks: Deck[] = [];
-  private notifier = new Subject();
 
-  constructor(private deckService: DeckService) {}
+  private readonly deckService = inject(DeckService);
 
-  ngOnInit(): void {
+  constructor() {
     this.getDecks();
   }
 
-  ngOnDestroy(): void {
-    this.notifier.next(true);
-    this.notifier.complete();
-  }
-
   getDecks(): void {
-    this.deckService.getDecks().pipe(takeUntil(this.notifier)).subscribe((decks) => (this.decks = decks));
+    this.deckService
+      .getDecks()
+      .pipe(takeUntilDestroyed())
+      .subscribe((decks) => (this.decks = decks));
   }
 }

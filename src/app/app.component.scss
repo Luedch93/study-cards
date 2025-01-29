@@ -1,4 +1,4 @@
-@import "../shared/variables";
+@use "../shared/variables" as *;
 
 :host {
   min-height: 100vh;
