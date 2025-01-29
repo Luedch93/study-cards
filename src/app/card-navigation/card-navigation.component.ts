@@ -3,9 +3,10 @@ import { DeckManagementService } from '../helpers/deck-management.service';
 import { Card } from '../types/Card';
 
 @Component({
-  selector: 'app-card-navigation',
-  templateUrl: './card-navigation.component.html',
-  styleUrls: ['./card-navigation.component.scss']
+    selector: 'app-card-navigation',
+    templateUrl: './card-navigation.component.html',
+    styleUrls: ['./card-navigation.component.scss'],
+    standalone: false
 })
 export class CardNavigationComponent implements OnInit {
 

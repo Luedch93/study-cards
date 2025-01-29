@@ -6,9 +6,10 @@ import { DeckService } from '../data/deck.service';
 import { CardForm } from '../types/Card';
 
 @Component({
-  selector: 'app-edit-card',
-  templateUrl: './edit-card.component.html',
-  styleUrls: ['./edit-card.component.scss']
+    selector: 'app-edit-card',
+    templateUrl: './edit-card.component.html',
+    styleUrls: ['./edit-card.component.scss'],
+    standalone: false
 })
 export class EditCardComponent implements OnInit {
 

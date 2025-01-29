@@ -6,9 +6,10 @@ import { DeckService } from '../data/deck.service';
 import { CardForm } from '../types/Card';
 
 @Component({
-  selector: 'app-new-card',
-  templateUrl: './new-card.component.html',
-  styleUrls: ['./new-card.component.scss']
+    selector: 'app-new-card',
+    templateUrl: './new-card.component.html',
+    styleUrls: ['./new-card.component.scss'],
+    standalone: false
 })
 export class NewCardComponent implements OnInit, OnDestroy {
 

@@ -4,9 +4,10 @@ import { DeckService } from '../data/deck.service';
 import { Deck } from '../types/Deck';
 
 @Component({
-  selector: 'app-decks',
-  templateUrl: './decks.component.html',
-  styleUrls: ['./decks.component.scss'],
+    selector: 'app-decks',
+    templateUrl: './decks.component.html',
+    styleUrls: ['./decks.component.scss'],
+    standalone: false
 })
 export class DecksComponent implements OnInit, OnDestroy {
   decks: Deck[] = [];

@@ -8,9 +8,10 @@ import { Card } from '../types/Card';
 import { Deck } from '../types/Deck';
 
 @Component({
-  selector: 'app-deck-details',
-  templateUrl: './deck-details.component.html',
-  styleUrls: ['./deck-details.component.scss'],
+    selector: 'app-deck-details',
+    templateUrl: './deck-details.component.html',
+    styleUrls: ['./deck-details.component.scss'],
+    standalone: false
 })
 export class DeckDetailsComponent implements OnInit, OnDestroy {
   deckId?: number;

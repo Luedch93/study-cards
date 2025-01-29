@@ -6,9 +6,10 @@ import { DeckService } from '../data/deck.service';
 import { DeckForm } from '../types/Deck';
 
 @Component({
-  selector: 'app-edit-deck',
-  templateUrl: './edit-deck.component.html',
-  styleUrls: ['./edit-deck.component.scss']
+    selector: 'app-edit-deck',
+    templateUrl: './edit-deck.component.html',
+    styleUrls: ['./edit-deck.component.scss'],
+    standalone: false
 })
 export class EditDeckComponent implements OnInit, OnDestroy {
 

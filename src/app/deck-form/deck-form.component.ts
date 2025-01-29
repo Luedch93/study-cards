@@ -4,9 +4,10 @@ import { DeckFormService } from '../data/deck-form.service';
 import { DeckForm } from '../types/Deck';
 
 @Component({
-  selector: 'app-deck-form',
-  templateUrl: './deck-form.component.html',
-  styleUrls: ['./deck-form.component.scss']
+    selector: 'app-deck-form',
+    templateUrl: './deck-form.component.html',
+    styleUrls: ['./deck-form.component.scss'],
+    standalone: false
 })
 export class DeckFormComponent implements OnInit {
 

@@ -4,9 +4,10 @@ import { CardFormService } from '../data/card-form.service';
 import { CardForm } from '../types/Card';
 
 @Component({
-  selector: 'app-card-form',
-  templateUrl: './card-form.component.html',
-  styleUrls: ['./card-form.component.scss']
+    selector: 'app-card-form',
+    templateUrl: './card-form.component.html',
+    styleUrls: ['./card-form.component.scss'],
+    standalone: false
 })
 export class CardFormComponent implements OnInit {
 

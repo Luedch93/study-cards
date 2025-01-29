@@ -5,9 +5,10 @@ import { DeckService } from '../data/deck.service';
 import { Card } from '../types/Card';
 
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss'],
+    selector: 'app-card',
+    templateUrl: './card.component.html',
+    styleUrls: ['./card.component.scss'],
+    standalone: false
 })
 export class CardComponent implements OnInit {
   isFlipped: boolean = false;
