@@ -1,17 +1,40 @@
 <form #form="ngForm">
   <div class="form-field">
     <label for="question">Question:</label>
-    <textarea id="question" name="question" [(ngModel)]="formValue.question" #question="ngModel" required ></textarea>
-    <div class="field-feedback" *ngIf="question.errors && (question.dirty || question.touched)">
-      <p *ngIf="question.errors['required']">Question is required</p>
+    <textarea
+      id="question"
+      name="question"
+      [(ngModel)]="formValue.question"
+      #question="ngModel"
+      required
+    ></textarea>
+    @if (question.errors && (question.dirty || question.touched)) {
+    <div class="field-feedback">
+      @if (question.errors['required']) {
+      <p>Question is required</p>
+      }
     </div>
+    }
   </div>
   <div class="form-field">
     <label for="answer">Answer:</label>
-    <textarea id="answer" name="answer" [(ngModel)]="formValue.answer" #answer="ngModel" required ></textarea>
-    <div class="field-feedback" *ngIf="answer.errors && (answer.dirty || answer.touched)">
-      <p *ngIf="answer.errors['required']">Answer is required</p>
+    <textarea
+      id="answer"
+      name="answer"
+      [(ngModel)]="formValue.answer"
+      #answer="ngModel"
+      required
+    ></textarea>
+    @if (answer.errors && (answer.dirty || answer.touched)) {
+    <div class="field-feedback">
+      @if (answer.errors['required']) {
+      <p>Answer is required</p>
+      }
     </div>
+
+    }
   </div>
-  <button [disabled]="!form.valid" type="button" (click)="submit(form)">{{btnLabel}}</button>
+  <button [disabled]="!form.valid" type="button" (click)="submit(form)">
+    {{ btnLabel }}
+  </button>
 </form>

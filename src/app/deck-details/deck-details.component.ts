@@ -5,6 +5,7 @@ import {
   Router,
   RouterLink,
   RouterLinkActive,
+  RouterOutlet,
 } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -15,12 +16,19 @@ import { RegexService } from '../helpers/regex.service';
 import { Card } from '../types/Card';
 import { Deck } from '../types/Deck';
 import { UpperCasePipe } from '@angular/common';
+import { CardNavigationComponent } from '../card-navigation/card-navigation.component';
 
 @Component({
   selector: 'app-deck-details',
   templateUrl: './deck-details.component.html',
   styleUrls: ['./deck-details.component.scss'],
-  imports: [RouterLink, RouterLinkActive, UpperCasePipe],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet,
+    UpperCasePipe,
+    CardNavigationComponent,
+  ],
 })
 export class DeckDetailsComponent implements OnInit {
   deckId?: number;
@@ -42,13 +50,12 @@ export class DeckDetailsComponent implements OnInit {
         this.getCardIdFromRoute();
         this.defaultNavigation();
       });
+    this.getDeckIdFromRoute();
+    this.getCardIdFromRoute();
     this.fetchInfo();
   }
 
-  ngOnInit(): void {
-    this.getDeckIdFromRoute();
-    this.getCardIdFromRoute();
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.deckService.clearCards();

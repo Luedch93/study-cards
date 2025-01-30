@@ -1,8 +1,28 @@
-<nav *ngIf="cardId && cards.length" class="card-navigation">
+@if (cardId && cards.length) {
+<nav class="card-navigation">
   <div>
-    <button class="btn previous" *ngIf="deckManagementService.hasPreviousCard(cards, cardId)" (click)="navigatePreviousCard()"><i class="gg-arrow-left-r"></i></button>
+    @if (deckManagementService.hasPreviousCard(cards, cardId)) {
+    <button
+      type="button"
+      title="previous card"
+      class="btn previous"
+      (click)="navigatePreviousCard()"
+    >
+      <i class="gg-arrow-left-r"></i>
+    </button>
+    }
   </div>
   <div>
-    <button class="btn next" *ngIf="deckManagementService.hasNextCard(cards, cardId)" (click)="navigateNextCard()"><i class="gg-arrow-right-r"></i></button>
+    @if (deckManagementService.hasNextCard(cards, cardId)) {
+    <button
+      type="button"
+      title="next card"
+      class="btn next"
+      (click)="navigateNextCard()"
+    >
+      <i class="gg-arrow-right-r"></i>
+    </button>
+    }
   </div>
 </nav>
+}

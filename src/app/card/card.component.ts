@@ -1,28 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { firstValueFrom } from 'rxjs';
+
 import { DeckService } from '../data/deck.service';
 import { Card } from '../types/Card';
 
 @Component({
-    selector: 'app-card',
-    templateUrl: './card.component.html',
-    styleUrls: ['./card.component.scss'],
-    standalone: false
+  selector: 'app-card',
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
   isFlipped: boolean = false;
   cardId?: number;
   card?: Card;
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private deckService: DeckService
-  ) {}
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly deckService = inject(DeckService);
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(() => {
-      this.isFlipped  = false;
+      this.isFlipped = false;
       this.getCardIdInRoute();
       this.getCardById();
     });
@@ -34,7 +32,9 @@ export class CardComponent implements OnInit {
 
   getCardById() {
     if (this.cardId) {
-      firstValueFrom(this.deckService.getCardById(this.cardId)).then(card => this.card = card);
+      firstValueFrom(this.deckService.getCardById(this.cardId)).then(
+        (card) => (this.card = card)
+      );
     }
   }
 

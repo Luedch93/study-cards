@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+
 import { DeckManagementService } from '../helpers/deck-management.service';
 import { Card } from '../types/Card';
 
@@ -6,17 +7,14 @@ import { Card } from '../types/Card';
   selector: 'app-card-navigation',
   templateUrl: './card-navigation.component.html',
   styleUrls: ['./card-navigation.component.scss'],
-  standalone: false,
 })
-export class CardNavigationComponent implements OnInit {
+export class CardNavigationComponent {
   @Input() cards: Card[] = [];
   @Input() cardId?: number;
   @Output() onNavigateNext = new EventEmitter<Card>();
   @Output() onNavigatePrevious = new EventEmitter<Card>();
 
-  constructor(public deckManagementService: DeckManagementService) {}
-
-  ngOnInit(): void {}
+  public readonly deckManagementService = inject(DeckManagementService);
 
   navigateNextCard(): void {
     if (this.cardId) {
