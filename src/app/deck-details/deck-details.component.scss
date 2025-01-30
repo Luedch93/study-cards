@@ -1,9 +1,4 @@
-@import url("https://css.gg/arrow-left-r.css");
-@import url("https://css.gg/arrow-right-r.css");
-@import url("https://css.gg/add.css");
-@import url("https://css.gg/pen.css");
-
-@import "../../shared/variables";
+@use "../../shared/variables" as *;
 
 h2,
 p {

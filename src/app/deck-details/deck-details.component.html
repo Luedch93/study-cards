@@ -1,12 +1,28 @@
-<h2>Deck name: {{deck?.name | uppercase}}</h2>
-<p>Number of cards in deck: {{cards.length}}</p>
+<h2>Deck name: {{ deck?.name | uppercase }}</h2>
+<p>Number of cards in deck: {{ cards.length }}</p>
 <nav class="options">
-  <a routerLink="create" [routerLinkActive]="'active'"><button><i class="gg-add"></i>Add card</button></a>
-  <a routerLink="edit" [routerLinkActive]="'active'"><button><i class="gg-pen"></i> Edit deck</button></a>
-  <a [routerLink]="editCardURL()" [routerLinkActive]="'active'"><button *ngIf="showCardEdit()"><i class="gg-card-diamonds"></i> Edit card</button></a>
-  <a [routerLink]="cardsURL()" ><button *ngIf="!showCardEdit()"><i class="gg-card-diamonds"></i>Go to cards</button></a>
+  <a routerLink="create" [routerLinkActive]="'active'"
+    ><button><i class="gg-add"></i>Add card</button></a
+  >
+  <a routerLink="edit" [routerLinkActive]="'active'"
+    ><button><i class="gg-pen"></i> Edit deck</button></a
+  >
+  @if (showCardEdit()) {
+  <a [routerLink]="editCardURL()" [routerLinkActive]="'active'"
+    ><button><i class="gg-card-diamonds"></i> Edit card</button></a
+  >
+  } @else {
+  <a [routerLink]="cardsURL()"
+    ><button><i class="gg-card-diamonds"></i>Go to cards</button></a
+  >
+  }
 </nav>
 
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
 
-<app-card-navigation [cardId]="cardId" [cards]="cards" (onNavigateNext)="navigateToCard($event)" (onNavigatePrevious)="navigateToCard($event)"></app-card-navigation>
+<!-- <app-card-navigation
+  [cardId]="cardId"
+  [cards]="cards"
+  (onNavigateNext)="navigateToCard($event)"
+  (onNavigatePrevious)="navigateToCard($event)"
+></app-card-navigation> -->

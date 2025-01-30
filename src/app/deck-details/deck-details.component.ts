@@ -1,60 +1,67 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { combineLatestWith, filter, Subject, takeUntil } from 'rxjs';
+import { Component, inject, OnInit } from '@angular/core';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+import { combineLatestWith, filter } from 'rxjs';
 
 import { DeckService } from '../data/deck.service';
 import { RegexService } from '../helpers/regex.service';
 import { Card } from '../types/Card';
 import { Deck } from '../types/Deck';
+import { UpperCasePipe } from '@angular/common';
 
 @Component({
-    selector: 'app-deck-details',
-    templateUrl: './deck-details.component.html',
-    styleUrls: ['./deck-details.component.scss'],
-    standalone: false
+  selector: 'app-deck-details',
+  templateUrl: './deck-details.component.html',
+  styleUrls: ['./deck-details.component.scss'],
+  imports: [RouterLink, RouterLinkActive, UpperCasePipe],
 })
-export class DeckDetailsComponent implements OnInit, OnDestroy {
+export class DeckDetailsComponent implements OnInit {
   deckId?: number;
   cards: Card[] = [];
   deck?: Deck;
   cardId?: number;
-  private notifier = new Subject();
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly deckService = inject(DeckService);
+  private readonly regexService = inject(RegexService);
+  private readonly router = inject(Router);
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private deckService: DeckService,
-    private regexService: RegexService,
-    private router: Router
-  ) {}
+  constructor() {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntilDestroyed()
+      )
+      .subscribe(() => {
+        this.getCardIdFromRoute();
+        this.defaultNavigation();
+      });
+    this.fetchInfo();
+  }
 
   ngOnInit(): void {
     this.getDeckIdFromRoute();
     this.getCardIdFromRoute();
-
-    this.fetchInfo();
-
-    this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd),
-        takeUntil(this.notifier)
-      ).subscribe(() => {
-        this.getCardIdFromRoute();
-        this.defaultNavigation();
-    });
   }
 
   ngOnDestroy(): void {
     this.deckService.clearCards();
     this.deckService.clearDeck();
-    this.notifier.next(true);
-    this.notifier.complete();
   }
 
   fetchInfo() {
     if (this.deckId) {
-      this.deckService.getCardsByDeckId(this.deckId)
+      this.deckService
+        .getCardsByDeckId(this.deckId)
         .pipe(
           combineLatestWith(this.deckService.getDeckById(this.deckId)),
-          takeUntil(this.notifier),
+          takeUntilDestroyed()
         )
         .subscribe(([cards, deck]) => {
           this.deck = deck;
@@ -83,15 +90,18 @@ export class DeckDetailsComponent implements OnInit, OnDestroy {
   }
 
   navigateToCard(card: Card): void {
-    if (card) this.router.navigate(['card', card.id], { relativeTo: this.activatedRoute });
+    if (card)
+      this.router.navigate(['card', card.id], {
+        relativeTo: this.activatedRoute,
+      });
   }
 
   navigateToNoCards() {
-    this.router.navigate(['no-cards'], { relativeTo: this.activatedRoute })
+    this.router.navigate(['no-cards'], { relativeTo: this.activatedRoute });
   }
 
   editCardURL(): string[] {
-    return ['card', String(this.cardId) , 'edit'];
+    return ['card', String(this.cardId), 'edit'];
   }
 
   cardsURL(): string[] {
@@ -99,15 +109,18 @@ export class DeckDetailsComponent implements OnInit, OnDestroy {
   }
 
   showCardEdit(): boolean {
-    return this.cards.length > 0 && this.regexService.isDeckAndCardURL(this.router.url);
+    return (
+      this.cards.length > 0 &&
+      this.regexService.isDeckAndCardURL(this.router.url)
+    );
   }
 
   defaultNavigation() {
     if (this.regexService.isOnlyDeckURL(this.router.url)) {
       if (this.cards.length > 0) {
-        this.navigateToFirstCard()
+        this.navigateToFirstCard();
       } else {
-        this.navigateToNoCards()
+        this.navigateToNoCards();
       }
     }
   }

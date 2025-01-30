@@ -6,11 +6,11 @@ export const routes: Route[] = [
     loadComponent: async () =>
       (await import('./new-deck/new-deck.component')).NewDeckComponent,
   },
-  // {
-  //   path: 'deck/:deckID',
-  //   loadChildren: async () =>
-  //     (await import('./deck-details/deck-details.routes')).deckRoutes,
-  // },
+  {
+    path: 'deck/:deckID',
+    loadChildren: async () =>
+      (await import('./deck-details/deck-details.routes')).deckRoutes,
+  },
   {
     path: 'decks',
     loadComponent: async () =>

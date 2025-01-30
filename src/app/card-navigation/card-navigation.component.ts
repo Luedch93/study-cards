@@ -3,21 +3,18 @@ import { DeckManagementService } from '../helpers/deck-management.service';
 import { Card } from '../types/Card';
 
 @Component({
-    selector: 'app-card-navigation',
-    templateUrl: './card-navigation.component.html',
-    styleUrls: ['./card-navigation.component.scss'],
-    standalone: false
+  selector: 'app-card-navigation',
+  templateUrl: './card-navigation.component.html',
+  styleUrls: ['./card-navigation.component.scss'],
+  standalone: false,
 })
 export class CardNavigationComponent implements OnInit {
-
   @Input() cards: Card[] = [];
   @Input() cardId?: number;
   @Output() onNavigateNext = new EventEmitter<Card>();
   @Output() onNavigatePrevious = new EventEmitter<Card>();
 
-  constructor(
-    public deckManagementService: DeckManagementService
-  ) { }
+  constructor(public deckManagementService: DeckManagementService) {}
 
   ngOnInit(): void {}
 
@@ -30,7 +27,10 @@ export class CardNavigationComponent implements OnInit {
 
   navigatePreviousCard(): void {
     if (this.cardId) {
-      const card = this.deckManagementService.previousCard(this.cards, this.cardId);
+      const card = this.deckManagementService.previousCard(
+        this.cards,
+        this.cardId
+      );
       this.onNavigatePrevious.emit(card);
     }
   }
