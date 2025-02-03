@@ -1,4 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { firstValueFrom } from 'rxjs';
@@ -10,39 +17,43 @@ import { Card } from '../types/Card';
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent implements OnInit {
-  isFlipped: boolean = false;
-  cardId?: number;
-  card?: Card;
+  isFlipped: WritableSignal<boolean> = signal(false);
+  cardId: WritableSignal<number | undefined> = signal(undefined);
+  card: WritableSignal<Card | undefined> = signal(undefined);
+
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly deckService = inject(DeckService);
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(() => {
-      this.isFlipped = false;
+      this.isFlipped.set(false);
       this.getCardIdInRoute();
       this.getCardById();
     });
   }
 
   getCardIdInRoute() {
-    this.cardId = Number(this.activatedRoute.snapshot.paramMap.get('cardID'));
+    this.cardId.set(
+      Number(this.activatedRoute.snapshot.paramMap.get('cardID'))
+    );
   }
 
   getCardById() {
-    if (this.cardId) {
-      firstValueFrom(this.deckService.getCardById(this.cardId)).then(
-        (card) => (this.card = card)
-      );
+    if (this.cardId()) {
+      firstValueFrom(
+        this.deckService.getCardById(this.cardId() as number)
+      ).then((card) => this.card.set(card));
     }
   }
 
   showBackSide() {
-    this.isFlipped = true;
+    this.isFlipped.set(true);
   }
 
   showFrontSide() {
-    this.isFlipped = false;
+    this.isFlipped.set(false);
   }
 }

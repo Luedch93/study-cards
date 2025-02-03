@@ -1,19 +1,19 @@
-@if (card) {
+@if (card()) {
 <div class="scene">
-  <div class="scene_card" [class.is-flipped]="isFlipped">
+  <div class="scene_card" [class.is-flipped]="isFlipped()">
     <div
       class="scene_card--front-side"
-      [class.toggle-text]="isFlipped"
+      [class.toggle-text]="isFlipped()"
       (click)="showBackSide()"
     >
-      <b>Question:</b><br />{{ card.question }}
+      <b>Question:</b><br />{{ card()?.question }}
     </div>
     <div
       class="scene_card--back-side"
       [class.toggle-text]="!isFlipped"
       (click)="showFrontSide()"
     >
-      <b>Answer:</b><br />{{ card.answer }}
+      <b>Answer:</b><br />{{ card()?.answer }}
     </div>
   </div>
 </div>

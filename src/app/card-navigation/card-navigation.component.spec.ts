@@ -8,9 +8,8 @@ describe('CardNavigationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CardNavigationComponent ]
-    })
-    .compileComponents();
+      imports: [CardNavigationComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -8,9 +8,8 @@ describe('DeckFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DeckFormComponent ]
-    })
-    .compileComponents();
+      imports: [DeckFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
