@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
+
 import { Card } from '../types/Card';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DeckManagementService {
-
-  constructor() { }
-
   nextCard(cards: Card[], cardId: number): Card | undefined {
     const index = cards.findIndex((card) => card.id == cardId);
     return index == -1 ? undefined : cards[index + 1];

@@ -1,5 +1,5 @@
-<h2>Deck name: {{ deck?.name | uppercase }}</h2>
-<p>Number of cards in deck: {{ cards.length }}</p>
+<h2>Deck name: {{ deck()?.name | uppercase }}</h2>
+<p>Number of cards in deck: {{ cards().length }}</p>
 <nav class="options">
   <a routerLink="create" [routerLinkActive]="'active'"
     ><button><i class="gg-add"></i>Add card</button></a
@@ -21,8 +21,8 @@
 <router-outlet></router-outlet>
 
 <app-card-navigation
-  [cardId]="cardId"
-  [cards]="cards"
+  [cardId]="cardId()"
+  [cards]="cards()"
   (onNavigateNext)="navigateToCard($event)"
   (onNavigatePrevious)="navigateToCard($event)"
 ></app-card-navigation>

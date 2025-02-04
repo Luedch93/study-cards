@@ -1,7 +1,7 @@
 @if (cardId && cards.length) {
 <nav class="card-navigation">
   <div>
-    @if (deckManagementService.hasPreviousCard(cards, cardId)) {
+    @if (hasPreviousCard) {
     <button
       type="button"
       title="previous card"
@@ -13,7 +13,7 @@
     }
   </div>
   <div>
-    @if (deckManagementService.hasNextCard(cards, cardId)) {
+    @if (hasNextCard) {
     <button
       type="button"
       title="next card"

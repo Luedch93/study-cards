@@ -1,4 +1,4 @@
-@import '../../shared/variables';
+@use "../../shared/variables" as *;
 
 .card-navigation {
   display: flex;

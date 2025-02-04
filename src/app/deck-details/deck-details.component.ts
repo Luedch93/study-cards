@@ -1,15 +1,19 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import {
   ActivatedRoute,
-  NavigationEnd,
   Router,
   RouterLink,
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { combineLatestWith, filter } from 'rxjs';
+import { combineLatestWith } from 'rxjs';
 
 import { DeckService } from '../data/deck.service';
 import { RegexService } from '../helpers/regex.service';
@@ -31,31 +35,20 @@ import { CardNavigationComponent } from '../card-navigation/card-navigation.comp
   ],
 })
 export class DeckDetailsComponent implements OnInit {
-  deckId?: number;
-  cards: Card[] = [];
-  deck?: Deck;
-  cardId?: number;
+  deckId: WritableSignal<number | undefined> = signal(undefined);
+  cards: WritableSignal<Card[]> = signal([]);
+  deck: WritableSignal<Deck | undefined> = signal(undefined);
+  cardId: WritableSignal<number | undefined> = signal(undefined);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly deckService = inject(DeckService);
   private readonly regexService = inject(RegexService);
   private readonly router = inject(Router);
 
-  constructor() {
-    this.router.events
-      .pipe(
-        filter((event) => event instanceof NavigationEnd),
-        takeUntilDestroyed()
-      )
-      .subscribe(() => {
-        this.getCardIdFromRoute();
-        this.defaultNavigation();
-      });
+  ngOnInit(): void {
     this.getDeckIdFromRoute();
     this.getCardIdFromRoute();
     this.fetchInfo();
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.deckService.clearCards();
@@ -65,33 +58,40 @@ export class DeckDetailsComponent implements OnInit {
   fetchInfo() {
     if (this.deckId) {
       this.deckService
-        .getCardsByDeckId(this.deckId)
+        .getCardsByDeckId(this.deckId() as number)
         .pipe(
-          combineLatestWith(this.deckService.getDeckById(this.deckId)),
-          takeUntilDestroyed()
+          combineLatestWith(
+            this.deckService.getDeckById(this.deckId() as number)
+          )
         )
         .subscribe(([cards, deck]) => {
-          this.deck = deck;
-          this.cards = cards;
+          this.deck.set(deck);
+          this.cards.set(cards);
           this.defaultNavigation();
         });
     }
   }
 
   getDeckIdFromRoute() {
-    this.deckId = Number(this.activatedRoute.snapshot.paramMap.get('deckID'));
+    this.deckId.set(
+      Number(this.activatedRoute.snapshot.paramMap.get('deckID'))
+    );
   }
 
   getCardIdFromRoute() {
-    if (this.activatedRoute.children[0])
-      this.cardId = Number(
-        this.activatedRoute.children[0].snapshot.paramMap.get('cardID')
-      );
+    setTimeout(() => {
+      if (this.activatedRoute.children[0])
+        this.cardId.set(
+          Number(
+            this.activatedRoute.children[0].snapshot.paramMap.get('cardID')
+          )
+        );
+    });
   }
 
   navigateToFirstCard() {
-    if (this.cards.length)
-      this.router.navigate(['card', this.cards[0].id], {
+    if (this.cards().length)
+      this.router.navigate(['card', this.cards()[0].id], {
         relativeTo: this.activatedRoute,
       });
   }
@@ -101,6 +101,7 @@ export class DeckDetailsComponent implements OnInit {
       this.router.navigate(['card', card.id], {
         relativeTo: this.activatedRoute,
       });
+    this.cardId.set(card?.id);
   }
 
   navigateToNoCards() {
@@ -117,14 +118,14 @@ export class DeckDetailsComponent implements OnInit {
 
   showCardEdit(): boolean {
     return (
-      this.cards.length > 0 &&
+      this.cards().length > 0 &&
       this.regexService.isDeckAndCardURL(this.router.url)
     );
   }
 
   defaultNavigation() {
     if (this.regexService.isOnlyDeckURL(this.router.url)) {
-      if (this.cards.length > 0) {
+      if (this.cards().length > 0) {
         this.navigateToFirstCard();
       } else {
         this.navigateToNoCards();
