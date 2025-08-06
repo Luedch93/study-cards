@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
   OnInit,
@@ -12,6 +13,7 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
+import { UpperCasePipe } from '@angular/common';
 
 import { combineLatestWith } from 'rxjs';
 
@@ -19,8 +21,8 @@ import { DeckService } from '../data/deck.service';
 import { RegexService } from '../helpers/regex.service';
 import { Card } from '../types/Card';
 import { Deck } from '../types/Deck';
-import { UpperCasePipe } from '@angular/common';
 import { CardNavigationComponent } from '../card-navigation/card-navigation.component';
+import { HideInEditPath } from '../helpers/hide-in-edit-path.directive';
 
 @Component({
   selector: 'app-deck-details',
@@ -32,7 +34,9 @@ import { CardNavigationComponent } from '../card-navigation/card-navigation.comp
     RouterOutlet,
     UpperCasePipe,
     CardNavigationComponent,
+    HideInEditPath,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeckDetailsComponent implements OnInit {
   deckId: WritableSignal<number | undefined> = signal(undefined);
@@ -109,11 +113,16 @@ export class DeckDetailsComponent implements OnInit {
   }
 
   editCardURL(): string[] {
-    return ['card', String(this.cardId), 'edit'];
+    return ['card', String(this.cardId()), 'edit'];
   }
 
   cardsURL(): string[] {
-    return ['/deck', String(this.deckId)];
+    return [
+      '/deck',
+      String(this.deckId()),
+      'card',
+      this.cards()[0].id.toString(),
+    ];
   }
 
   showCardEdit(): boolean {

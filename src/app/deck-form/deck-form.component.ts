@@ -1,4 +1,10 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 import { DeckFormService } from '../data/deck-form.service';
@@ -9,6 +15,7 @@ import { DeckForm } from '../types/Deck';
   templateUrl: './deck-form.component.html',
   styleUrls: ['./deck-form.component.scss'],
   imports: [FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeckFormComponent implements OnInit {
   @Input() deckForm?: DeckForm;

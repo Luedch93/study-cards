@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   inject,
@@ -15,6 +16,7 @@ import { Card } from '../types/Card';
   selector: 'app-card-navigation',
   templateUrl: './card-navigation.component.html',
   styleUrls: ['./card-navigation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardNavigationComponent implements OnChanges {
   @Input() cards: Card[] = [];

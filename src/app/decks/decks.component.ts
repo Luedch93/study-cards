@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -10,6 +10,7 @@ import { Deck } from '../types/Deck';
   templateUrl: './decks.component.html',
   styleUrls: ['./decks.component.scss'],
   imports: [RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DecksComponent {
   decks: Deck[] = [];

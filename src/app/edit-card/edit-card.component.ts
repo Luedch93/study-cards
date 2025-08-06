@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -12,6 +12,7 @@ import { CardFormComponent } from '../card-form/card-form.component';
   templateUrl: './edit-card.component.html',
   styleUrls: ['./edit-card.component.scss'],
   imports: [CardFormComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditCardComponent {
   cardForm: CardForm = { answer: '', question: '' };

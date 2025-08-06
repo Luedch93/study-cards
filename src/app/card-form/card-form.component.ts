@@ -1,4 +1,10 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 import { CardFormService } from '../data/card-form.service';
@@ -9,6 +15,7 @@ import { CardForm } from '../types/Card';
   templateUrl: './card-form.component.html',
   styleUrls: ['./card-form.component.scss'],
   imports: [FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardFormComponent implements OnInit {
   @Input() cardForm?: CardForm;

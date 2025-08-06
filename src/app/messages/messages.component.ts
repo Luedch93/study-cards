@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MessagesService } from '../data/messages.service';
 
 @Component({
-    selector: 'app-messages',
-    templateUrl: './messages.component.html',
-    styleUrls: ['./messages.component.scss'],
-    standalone: false
+  selector: 'app-messages',
+  templateUrl: './messages.component.html',
+  styleUrls: ['./messages.component.scss'],
+  standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessagesComponent {
-  constructor(public messageService: MessagesService) { }
+  constructor(public messageService: MessagesService) {}
 }

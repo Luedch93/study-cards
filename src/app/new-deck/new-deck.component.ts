@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -12,6 +12,7 @@ import { DeckFormComponent } from '../deck-form/deck-form.component';
   templateUrl: './new-deck.component.html',
   styleUrls: ['./new-deck.component.scss'],
   imports: [DeckFormComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewDeckComponent {
   deckForm: DeckForm = { name: '' };

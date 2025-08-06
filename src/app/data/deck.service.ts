@@ -60,17 +60,21 @@ export class DeckService {
     return this.card$;
   }
 
-  addCardToDeck(deckId: number, card: CardForm): void {
+  addCardToDeck(deckId: number, card: CardForm): number {
     const storageCards = this.storageService.getCards();
+    const cardId = new Date().getTime();
+
     storageCards.push({
       deckId,
       answer: card.answer,
-      id: new Date().getTime(),
+      id: cardId,
       question: card.question,
     });
     const cards = storageCards.filter((card) => card.deckId == deckId);
     this.storageService.setCards(storageCards);
     this.cards$.next(cards);
+
+    return cardId;
   }
 
   addDeck(deck: DeckForm) {

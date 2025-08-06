@@ -21,6 +21,7 @@
 <router-outlet></router-outlet>
 
 <app-card-navigation
+  hideInEditPath
   [cardId]="cardId()"
   [cards]="cards()"
   (onNavigateNext)="navigateToCard($event)"

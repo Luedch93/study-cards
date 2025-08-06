@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -12,6 +12,7 @@ import { CardFormComponent } from '../card-form/card-form.component';
   templateUrl: './new-card.component.html',
   styleUrls: ['./new-card.component.scss'],
   imports: [CardFormComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewCardComponent {
   cardForm: CardForm = { answer: '', question: '' };
@@ -37,8 +38,13 @@ export class NewCardComponent {
         .getCardForm()
         .pipe(takeUntilDestroyed())
         .subscribe((cardForm) => {
-          this.deckService.addCardToDeck(deckId, cardForm);
-          this.router.navigate(['deck', this.getDeckIDFormRoute()]);
+          const cardId = this.deckService.addCardToDeck(deckId, cardForm);
+          this.router.navigate([
+            'deck',
+            this.getDeckIDFormRoute(),
+            'card',
+            cardId,
+          ]);
         });
     }
   }
