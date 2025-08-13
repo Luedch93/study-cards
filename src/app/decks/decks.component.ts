@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -13,7 +20,7 @@ import { Deck } from '../types/Deck';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DecksComponent {
-  decks: Deck[] = [];
+  decks: WritableSignal<Deck[]> = signal([]);
 
   private readonly deckService = inject(DeckService);
 
@@ -25,6 +32,8 @@ export class DecksComponent {
     this.deckService
       .getDecks()
       .pipe(takeUntilDestroyed())
-      .subscribe((decks) => (this.decks = decks));
+      .subscribe((decks) => {
+        this.decks.set(decks);
+      });
   }
 }

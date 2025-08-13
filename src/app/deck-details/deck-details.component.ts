@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   OnInit,
+  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -22,7 +24,6 @@ import { RegexService } from '../helpers/regex.service';
 import { Card } from '../types/Card';
 import { Deck } from '../types/Deck';
 import { CardNavigationComponent } from '../card-navigation/card-navigation.component';
-import { HideInEditPath } from '../helpers/hide-in-edit-path.directive';
 
 @Component({
   selector: 'app-deck-details',
@@ -32,17 +33,20 @@ import { HideInEditPath } from '../helpers/hide-in-edit-path.directive';
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
-    UpperCasePipe,
     CardNavigationComponent,
-    HideInEditPath,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeckDetailsComponent implements OnInit {
-  deckId: WritableSignal<number | undefined> = signal(undefined);
+  deckId: WritableSignal<number> = signal(0);
   cards: WritableSignal<Card[]> = signal([]);
-  deck: WritableSignal<Deck | undefined> = signal(undefined);
-  cardId: WritableSignal<number | undefined> = signal(undefined);
+  deck: WritableSignal<Deck> = signal({ id: 0, name: '' });
+  cardId: WritableSignal<number> = signal(0);
+  loading: WritableSignal<boolean> = signal(true);
+
+  cardsLength: Signal<number> = computed(() => this.cards().length);
+  deckTitle: Signal<string> = computed(() => this.deck().name.toUpperCase());
+
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly deckService = inject(DeckService);
   private readonly regexService = inject(RegexService);
@@ -65,20 +69,26 @@ export class DeckDetailsComponent implements OnInit {
         .getCardsByDeckId(this.deckId() as number)
         .pipe(
           combineLatestWith(
-            this.deckService.getDeckById(this.deckId() as number)
-          )
+            this.deckService.getDeckById(this.deckId() as number),
+          ),
         )
         .subscribe(([cards, deck]) => {
-          this.deck.set(deck);
+          if (!deck) {
+            this.router.navigate(['decks']);
+            return;
+          }
+
+          this.deck.set(deck as Deck);
           this.cards.set(cards);
           this.defaultNavigation();
+          this.loading.set(false);
         });
     }
   }
 
   getDeckIdFromRoute() {
     this.deckId.set(
-      Number(this.activatedRoute.snapshot.paramMap.get('deckID'))
+      Number(this.activatedRoute.snapshot.paramMap.get('deckID')),
     );
   }
 
@@ -87,8 +97,8 @@ export class DeckDetailsComponent implements OnInit {
       if (this.activatedRoute.children[0])
         this.cardId.set(
           Number(
-            this.activatedRoute.children[0].snapshot.paramMap.get('cardID')
-          )
+            this.activatedRoute.children[0].snapshot.paramMap.get('cardID'),
+          ),
         );
     });
   }

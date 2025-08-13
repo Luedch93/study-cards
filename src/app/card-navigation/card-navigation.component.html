@@ -1,28 +1,28 @@
-@if (cardId && cards.length) {
-<nav class="card-navigation">
-  <div>
-    @if (hasPreviousCard) {
-    <button
-      type="button"
-      title="previous card"
-      class="btn previous"
-      (click)="navigatePreviousCard()"
-    >
-      <i class="gg-arrow-left-r"></i>
-    </button>
-    }
-  </div>
-  <div>
-    @if (hasNextCard) {
-    <button
-      type="button"
-      title="next card"
-      class="btn next"
-      (click)="navigateNextCard()"
-    >
-      <i class="gg-arrow-right-r"></i>
-    </button>
-    }
-  </div>
-</nav>
+@if (cardId() && cards().length) {
+  <nav class="card-navigation">
+    <div>
+      @if (hasPreviousCard()) {
+        <button
+          type="button"
+          title="previous card"
+          class="btn previous"
+          (click)="navigatePreviousCard()"
+        >
+          <i class="gg-arrow-left-r"></i>
+        </button>
+      }
+    </div>
+    <div>
+      @if (hasNextCard()) {
+        <button
+          type="button"
+          title="next card"
+          class="btn next"
+          (click)="navigateNextCard()"
+        >
+          <i class="gg-arrow-right-r"></i>
+        </button>
+      }
+    </div>
+  </nav>
 }

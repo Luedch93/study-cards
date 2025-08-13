@@ -1,11 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   inject,
-  Input,
+  input,
   OnChanges,
-  Output,
+  output,
+  signal,
   SimpleChanges,
 } from '@angular/core';
 
@@ -19,13 +19,13 @@ import { Card } from '../types/Card';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardNavigationComponent implements OnChanges {
-  @Input() cards: Card[] = [];
-  @Input() cardId?: number;
-  @Output() onNavigateNext = new EventEmitter<Card>();
-  @Output() onNavigatePrevious = new EventEmitter<Card>();
+  cards = input.required<Card[]>();
+  cardId = input.required<number>();
+  onNavigateNext = output<Card>();
+  onNavigatePrevious = output<Card>();
 
-  hasPreviousCard = false;
-  hasNextCard = false;
+  hasPreviousCard = signal(false);
+  hasNextCard = signal(false);
 
   private readonly deckManagementService = inject(DeckManagementService);
 
@@ -38,31 +38,37 @@ export class CardNavigationComponent implements OnChanges {
   }
 
   navigateNextCard(): void {
-    if (this.cardId) {
-      const card = this.deckManagementService.nextCard(this.cards, this.cardId);
+    if (!this.cardId()) return;
+
+    const card = this.deckManagementService.nextCard(
+      this.cards(),
+      this.cardId(),
+    );
+    if (card) {
       this.onNavigateNext.emit(card);
     }
   }
 
   navigatePreviousCard(): void {
-    if (this.cardId) {
-      const card = this.deckManagementService.previousCard(
-        this.cards,
-        this.cardId
-      );
+    if (!this.cardId()) return;
+
+    const card = this.deckManagementService.previousCard(
+      this.cards(),
+      this.cardId(),
+    );
+
+    if (card) {
       this.onNavigatePrevious.emit(card);
     }
   }
 
   private checkPreviousNextCards() {
-    if (this.cards && this.cardId) {
-      this.hasNextCard = this.deckManagementService.hasNextCard(
-        this.cards,
-        this.cardId
+    if (this.cards() && this.cardId()) {
+      this.hasNextCard.set(
+        this.deckManagementService.hasNextCard(this.cards(), this.cardId()),
       );
-      this.hasPreviousCard = this.deckManagementService.hasPreviousCard(
-        this.cards,
-        this.cardId
+      this.hasPreviousCard.set(
+        this.deckManagementService.hasPreviousCard(this.cards(), this.cardId()),
       );
     }
   }

@@ -3,13 +3,10 @@ import { Subject } from 'rxjs';
 import { DeckForm } from '../types/Deck';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DeckFormService {
-
-  private deckForm$: Subject<DeckForm> = new Subject<DeckForm>()
-
-  constructor() { }
+  private deckForm$: Subject<DeckForm> = new Subject<DeckForm>();
 
   setDeckForm(deckForm: DeckForm): void {
     this.deckForm$.next(deckForm);

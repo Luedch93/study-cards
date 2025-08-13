@@ -1,8 +1,8 @@
-@if ( decks.length ) {
+@if ( decks().length ) {
 <div>
   <h3>My Decks</h3>
   <div class="list">
-    @for (deck of decks; track $index; let i = $index;) {
+    @for (deck of decks(); track $index; let i = $index;) {
     <a [routerLink]="['/deck', deck.id]">
       <span class="badge">{{ i + 1 }} </span
       ><span class="name">{{ deck.name }}</span>

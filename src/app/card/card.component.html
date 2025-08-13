@@ -10,7 +10,7 @@
     </div>
     <div
       class="scene_card--back-side"
-      [class.toggle-text]="!isFlipped"
+      [class.toggle-text]="!isFlipped()"
       (click)="showFrontSide()"
     >
       <b>Answer:</b><br />{{ card()?.answer }}
